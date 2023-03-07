@@ -3,18 +3,30 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% if app.user %}
+        <div>
+            {% if app.user.avatar == 'https://api.lorem.space/image/face?w=100&h=100' %}
+                <img src="{{ asset(app.user.avatar) }}" alt="">
+            {% else %}
+                <img src="{{ asset('uploads/filename/' ~ app.user.avatar) }}" width="100px" height="100px" alt="">
+            {% endif %}
+            <div>
+                <p>Your email: {{ app.user.email }}</p>
+                <p>Your username: {{ app.user.username }}</p>
+                <p>Your age: {{ app.user.age }} year</p>
+                <p>Your password: *******</p>
+                <p>Verified account ?
+                    {% if app.user.isVerified == true %}
+                        Your account is verified !
+                    {% endif %}
+                    {% if app.user.isVerified == false %}
+                        Your account is not verified !
+                    {% endif %}
+                </p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/shano/PhpstormProjects/eval_symfony/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/shano/PhpstormProjects/eval_symfony/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}

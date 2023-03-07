@@ -9,6 +9,9 @@
 
     <h1>Register</h1>
 
-    {{ form(registrationForm) }}
+    <div class="container-fluid mt-4 w-50">
+        {% form_theme registrationForm 'bootstrap_5_horizontal_layout.html.twig' %}
+        {{ form(registrationForm) }}
+    </div>
 
 {% endblock %}

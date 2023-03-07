@@ -11,7 +11,6 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'app_profile')]
     public function index(): Response
     {
-        $this->denyAccessUnlessGranted("ROLE_USER");
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'ProfileController',
         ]);
