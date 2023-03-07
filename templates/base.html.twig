@@ -15,6 +15,9 @@
     <body>
         <nav>
             <ul>
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <li><a href="{{ path('admin') }}">Administration</a></li>
+                {% endif %}
                 <li><a href="{{ path('app_home') }}">Home</a></li>
                 <li><a href="{{ path('app_article') }}">Items</a></li>
                 {% if app.user %}
