@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+    {% if articles is defined %}
+        {% for article in articles %}
+            {% if article.isPublish %}
+                <div>
+                    <img src="{{ asset('/uploads/article/' ~ article.cover) }}" width="150" height="150" alt="">
+                    <p>{{ article.title }}</p>
+                    <p>{{ article.content }}</p>
+                    <p>{{ article.user.username }}</p>
+                    <p>{{ article.dateAdd|date('d/m/y') }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

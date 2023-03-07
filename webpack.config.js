@@ -22,6 +22,15 @@ Encore
      */
     .addEntry('app', './assets/app.js')
 
+    .copyFiles([
+        {from: './node_modules/ckeditor/', to: '../bundles/fosckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+        {from: './node_modules/ckeditor/adapters', to: '../bundles/fosckeditor/adapters/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/lang', to: '../bundles/fosckeditor/lang/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/plugins', to: '../bundles/fosckeditor/plugins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/skins', to: '../bundles/fosckeditor/skins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/vendor', to: '../bundles/fosckeditor/vendor/[path][name].[ext]'}
+    ])
+
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     // enableStimulusBridge('./assets/controllers.json')
 

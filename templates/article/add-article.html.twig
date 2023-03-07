@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+    <h1>Add item</h1>
+
+    <div class="container-fluid mt-4 w-50">
+        {% form_theme form_article 'bootstrap_5_horizontal_layout.html.twig' %}
+        {{ form(form_article) }}
+    </div>
+{% endblock %}
