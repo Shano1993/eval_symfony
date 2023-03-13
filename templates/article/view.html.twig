@@ -3,5 +3,19 @@
 {% block title %}Hello ArticleController!{% endblock %}
 
 {% block body %}
-    {{ article.title }}
+    <div class="card m-auto" style="margin: 0 auto; width: 40%">
+        <h1 class="text-center">{{ article.title }}</h1>
+        <img class="card-img-top" src="{{ asset('/uploads/article/' ~ article.cover) }}" height="420px" alt="">
+        <p class="text-center p-3">{{ article.content }}</p>
+        <p class="text-bg-dark p-2">Added by {{ article.user }}</p>
+        <div class="card-footer">
+            {% for comment in article.comments %}
+                <p>{{ comment.content }}</p>
+                <p class="text-bg-info">Comment by {{ comment.user.username }} on {{ comment.dateAdd|date('d/m/y') }}</p>
+            {% endfor %}
+            <div>
+                <a class="btn btn-info" href="{{ path('add_comment', {id: article.id}) }}">Add your comment</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

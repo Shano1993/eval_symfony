@@ -1,9 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
-    {% for article in articles %}
-        <p>{{ article.title }}</p>
-    {% endfor %}
+    <h1 class="display-2 m-3">Welcome to the article site !</h1>
+    {% if articles is defined %}
+        {% for article in articles %}
+            {% if article.isPublish %}
+                <div class="card p-5 m-5" style="width: 24rem;">
+                    <img class="card-img-top" src="{{ asset('/uploads/article/' ~ article.cover) }}" height="180px" alt="">
+                    <div class="card-body">
+                        <a class="card-title" href="{{ path('view_article', {slug: article.slug}) }}"><p>{{ article.title }}</p></a>
+                        <p class="card-text">Added by {{ article.user.username }} on {{ article.dateAdd|date('d/m/y') }}</p>
+                        {% if is_granted("ROLE_MODERATOR") %}
+                            <a class="btn btn-success" href="{{ path('edit_article', {id: article.id}) }}">Edit</a>
+                            <a class="btn btn-danger" href="{{ path('delete_article', {id: article.id}) }}">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}

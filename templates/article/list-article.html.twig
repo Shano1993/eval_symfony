@@ -1,39 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+{% block title %}List of articles{% endblock %}
 
 {% block body %}
+    <h1 class="display-2 m-3">List of Articles !</h1>
     {% if articles is defined %}
         {% for article in articles %}
             {% if article.isPublish %}
-                <div>
-                    <img src="{{ asset('/uploads/article/' ~ article.cover) }}" width="150" height="150" alt="">
-                    <a href="{{ path('view_article', {slug: article.slug}) }}"><p>{{ article.title }}</p></a>
-                    <p>{{ article.content }}</p>
-                    <p>{{ article.user.username }}</p>
-                    <p>{{ article.dateAdd|date('d/m/y') }}</p>
-                    {% if is_granted("ROLE_MODERATOR") %}
-                        <a href="{{ path('edit_article', {id: article.id}) }}">Edit</a>
-                        <a href="{{ path('delete_article', {id: article.id}) }}">Delete</a>
-                    {% endif %}
-                </div>
-                <div>
-                    <h2>Comment:</h2>
-                    {% for comment in article.comments %}
-                        <p>{{ comment.content }}</p>
-                        {% if comment.user == null %}
-                            <p>Unknown author</p>
-                        {% else %}
-                            <p>Ajouté par: {{ comment.user.email }}</p>
-                        {% endif %}
-                        <span>Le {{ comment.dateAdd|date('d/m/y') }}</span>
+                <div class="card p-5 m-5" style="width: 36rem;">
+                    <img class="card-img-top" src="{{ asset('/uploads/article/' ~ article.cover) }}" height="360px" alt="">
+                    <div class="card-body">
+                        <a class="card-title" href="{{ path('view_article', {slug: article.slug}) }}"><p>{{ article.title }}</p></a>
+                        <p class="card-text">{{ article.content }}</p>
+                        <p class="card-text">Added by {{ article.user.username }} on {{ article.dateAdd|date('d/m/y') }}</p>
                         {% if is_granted("ROLE_MODERATOR") %}
-                            <a href="{{ path('edit_comment', {id: comment.id}) }}">Edit</a>
-                            <a href="{{ path('delete_comment', {id: comment.id}) }}">Delete</a>
+                            <a class="btn btn-success" href="{{ path('edit_article', {id: article.id}) }}">Edit</a>
+                            <a class="btn btn-danger" href="{{ path('delete_article', {id: article.id}) }}">Delete</a>
                         {% endif %}
-                    {% endfor %}
+                        <div class="card-footer">
+                            <h5>Comment:</h5>
+                            {% for comment in article.comments %}
+                                <p>{{ comment.content }}</p>
+                                {% if comment.user == null %}
+                                    <p style="color: blue">Comment by Unknown author on {{ comment.dateAdd|date('d/m/y') }}</p>
+                                {% else %}
+                                    <p style="color: blue">Comment by {{ comment.user.username }} on {{ comment.dateAdd|date('d/m/y') }}</p>
+                                {% endif %}
+                                {% if is_granted("ROLE_MODERATOR") %}
+                                    <a class="btn btn-success" href="{{ path('edit_comment', {id: comment.id}) }}">Edit</a>
+                                    <a class="btn btn-danger" href="{{ path('delete_comment', {id: comment.id}) }}">Delete</a>
+                                {% endif %}
+                            {% endfor %}
+                            <div>
+                                <a class="btn btn-info" href="{{ path('add_comment', {id: article.id}) }}">Add your comment</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <a href="{{ path('add_comment', {id: article.id}) }}">Add your comment</a>
             {% endif %}
         {% endfor %}
     {% endif %}
