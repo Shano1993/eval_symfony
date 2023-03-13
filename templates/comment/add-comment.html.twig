@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CommentController!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid mt-4 w-50">
+        {% form_theme form_comment 'bootstrap_5_layout.html.twig' %}
+        {{ form(form_comment) }}
+    </div>
+{% endblock %}
