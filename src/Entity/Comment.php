@@ -21,9 +21,11 @@ class Comment
     private ?\DateTimeInterface $dateAdd = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Article $Article = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?User $User = null;
 
     public function getId(): ?int

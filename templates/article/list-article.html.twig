@@ -8,18 +8,24 @@
             {% if article.isPublish %}
                 <div>
                     <img src="{{ asset('/uploads/article/' ~ article.cover) }}" width="150" height="150" alt="">
-                    <p>{{ article.title }}</p>
+                    <a href="{{ path('view_article', {slug: article.slug}) }}"><p>{{ article.title }}</p></a>
                     <p>{{ article.content }}</p>
                     <p>{{ article.user.username }}</p>
                     <p>{{ article.dateAdd|date('d/m/y') }}</p>
-                    <a href="{{ path('edit_article', {id: article.id}) }}">Edit</a>
-                    <a href="{{ path('delete_article', {id: article.id}) }}">Delete</a>
+                    {% if is_granted("ROLE_MODERATOR") %}
+                        <a href="{{ path('edit_article', {id: article.id}) }}">Edit</a>
+                        <a href="{{ path('delete_article', {id: article.id}) }}">Delete</a>
+                    {% endif %}
                 </div>
                 <div>
                     <h2>Comment:</h2>
                     {% for comment in article.comments %}
                         <p>{{ comment.content }}</p>
-                        <p>Ajouté par: {{ comment.user.email }}</p>
+                        {% if comment.user == null %}
+                            <p>Unknown author</p>
+                        {% else %}
+                            <p>Ajouté par: {{ comment.user.email }}</p>
+                        {% endif %}
                         <span>Le {{ comment.dateAdd|date('d/m/y') }}</span>
                         {% if is_granted("ROLE_MODERATOR") %}
                             <a href="{{ path('edit_comment', {id: comment.id}) }}">Edit</a>

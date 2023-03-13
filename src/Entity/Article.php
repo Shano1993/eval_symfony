@@ -37,6 +37,9 @@ class Article
     #[ORM\OneToMany(mappedBy: 'Article', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\Column(length: 150)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -145,6 +148,18 @@ class Article
                 $comment->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

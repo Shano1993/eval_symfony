@@ -11,10 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CommentController extends AbstractController
 {
     #[Route('/comment/add/{id}', name: 'add_comment')]
+    #[IsGranted('ROLE_USER')]
     public function addComment(Article $article, Request $request, EntityManagerInterface $entityManager): Response
     {
         $date = new DateTime();
@@ -37,6 +39,7 @@ class CommentController extends AbstractController
     }
 
     #[Route('/comment/edit/{id}', name: 'edit_comment')]
+    #[IsGranted('ROLE_MODERATOR')]
     public function editComment(Comment $comment, Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CommentType::class, $comment);
@@ -52,6 +55,7 @@ class CommentController extends AbstractController
     }
 
     #[Route('/comment/delete/{id}', name: 'delete_comment')]
+    #[IsGranted('ROLE_MODERATOR')]
     public function delete(Comment $comment, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($comment);
