@@ -28,6 +28,7 @@ class ArticleType extends AbstractType
 
             ->add('cover', FileType::class, [
                 'label' => 'Article cover',
+                'mapped' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => "8M",

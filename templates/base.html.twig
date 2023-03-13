@@ -14,23 +14,31 @@
     </head>
     <body>
         <nav>
-            <ul>
+            <ul class="navbar navbar-expand-lg navbar-light bg-dark justify-content-lg-around">
+                <a href="{{ path('app_home') }}">
+                    <img src="{{ asset('build/images/49334.png') }}" width="50px" style="margin: 0.5rem 1.5rem" alt="">
+                </a>
                 {% if is_granted("ROLE_SUPER_ADMIN") %}
-                    <li><a href="{{ path('admin') }}">Administration</a></li>
+                    <div class="container-fluid">
+                        <li class="navbar-brand"><a class="btn btn-success" href="{{ path('admin') }}">Administration</a></li>
+                    </div>
                 {% endif %}
-                <li><a href="{{ path('app_home') }}">Home</a></li>
-                <li><a href="{{ path('app_article') }}">Items</a></li>
+                <li class="navbar-brand"><a class="link-light" href="{{ path('app_home') }}">Home</a></li>
+                <li class="navbar-brand"><a class="link-light" href="{{ path('app_article') }}">Articles</a></li>
                 {% if app.user %}
                     {% if is_granted("ROLE_AUTHOR") %}
-                        <li><a href="{{ path('add_article') }}">Add item</a></li>
+                        <li class="navbar-brand"><a class="link-light" href="{{ path('add_article') }}">Add article</a></li>
                     {% endif %}
-                    <li><a href="{{ path('app_profile') }}">Profile</a></li>
-                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                    <div class="container-sm justify-content-end">
+                        <li class="navbar-brand"><a class="btn btn-primary" href="{{ path('app_profile') }}">Profile</a></li>
+                        <li class="navbar-brand"><a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a></li>
+                    </div>
                 {% else %}
-                    <li><a href="{{ path('app_login') }}">Login</a></li>
-                    <li><a href="{{ path('app_register') }}">Register</a></li>
+                    <div class="container-fluid justify-content-end">
+                        <li class="navbar-brand"><a class="btn btn-success" href="{{ path('app_login') }}">Login</a></li>
+                        <li class="navbar-brand"><a class="btn btn-success" href="{{ path('app_register') }}">Register</a></li>
+                    </div>
                 {% endif %}
-
             </ul>
         </nav>
         {% block body %}{% endblock %}

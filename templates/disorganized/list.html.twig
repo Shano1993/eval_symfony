@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+
+    {% for disorganized in list_disorganized %}
+        {% if app.user == disorganized.user %}
+        {% if not disorganized.isPublish %}
+            <p>{{ disorganized.user }}</p>
+            <p>{{ disorganized.title }}</p>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

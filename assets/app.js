@@ -9,3 +9,5 @@
 import './styles/app.css';
 import '/node_modules/bootstrap/dist/css/bootstrap.css';
 
+import './image/49334.png';
+

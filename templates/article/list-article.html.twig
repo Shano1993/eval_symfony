@@ -12,7 +12,22 @@
                     <p>{{ article.content }}</p>
                     <p>{{ article.user.username }}</p>
                     <p>{{ article.dateAdd|date('d/m/y') }}</p>
+                    <a href="{{ path('edit_article', {id: article.id}) }}">Edit</a>
+                    <a href="{{ path('delete_article', {id: article.id}) }}">Delete</a>
                 </div>
+                <div>
+                    <h2>Comment:</h2>
+                    {% for comment in article.comments %}
+                        <p>{{ comment.content }}</p>
+                        <p>Ajouté par: {{ comment.user.email }}</p>
+                        <span>Le {{ comment.dateAdd|date('d/m/y') }}</span>
+                        {% if is_granted("ROLE_MODERATOR") %}
+                            <a href="{{ path('edit_comment', {id: comment.id}) }}">Edit</a>
+                            <a href="{{ path('delete_comment', {id: comment.id}) }}">Delete</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <a href="{{ path('add_comment', {id: article.id}) }}">Add your comment</a>
             {% endif %}
         {% endfor %}
     {% endif %}
