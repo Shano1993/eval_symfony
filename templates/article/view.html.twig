@@ -3,10 +3,10 @@
 {% block title %}Hello ArticleController!{% endblock %}
 
 {% block body %}
-    <div class="card m-auto" style="margin: 0 auto; width: 40%">
+    <div class="card m-auto p-4" style="margin: 0 auto; width: 40%">
         <h1 class="text-center">{{ article.title }}</h1>
         <img class="card-img-top" src="{{ asset('/uploads/article/' ~ article.cover) }}" height="420px" alt="">
-        <p class="text-center p-3">{{ article.content }}</p>
+        <p class="text-center p-3">{{ article.content|raw }}</p>
         <p class="text-bg-dark p-2">Added by {{ article.user }}</p>
         <div class="card-footer">
             {% for comment in article.comments %}
