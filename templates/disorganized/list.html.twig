@@ -4,11 +4,19 @@
 
 {% block body %}
 
+    <h1 class="display-2 m-3">Your drafts</h1>
     {% for disorganized in list_disorganized %}
         {% if app.user == disorganized.user %}
         {% if not disorganized.isPublish %}
-            <p>{{ disorganized.user }}</p>
-            <p>{{ disorganized.title }}</p>
+            <div class="card p-3" style="width: 36rem">
+                <img src="{{ asset('/uploads/article/' ~ disorganized.cover) }}" height="400px" alt="">
+                <div class="card-body">
+                    <p class="card-text">{{ disorganized.title }}</p>
+                    <p class="card-text">{{ disorganized.content }}</p>
+                </div>
+                <a class="btn btn-success" href="{{ path('disorganized_edit', {id: disorganized.id}) }}">Edit</a>
+            </div>
+
         {% endif %}
         {% endif %}
     {% endfor %}

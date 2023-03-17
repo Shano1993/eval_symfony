@@ -11,7 +11,7 @@
                     <img class="card-img-top" src="{{ asset('/uploads/article/' ~ article.cover) }}" height="360px" alt="">
                     <div class="card-body">
                         <a class="card-title" href="{{ path('view_article', {slug: article.slug}) }}"><p>{{ article.title }}</p></a>
-                        <p class="card-text">{{ article.content }}</p>
+                        <p class="card-text">{{ article.content|raw }}</p>
                         <p class="card-text">Added by {{ article.user.username }} on {{ article.dateAdd|date('d/m/y') }}</p>
                         {% if is_granted("ROLE_MODERATOR") %}
                             <a class="btn btn-success" href="{{ path('edit_article', {id: article.id}) }}">Edit</a>

@@ -5,28 +5,46 @@
 {% block body %}
 
     {% if app.user %}
-        <div>
-            {% if app.user.avatar == 'https://api.lorem.space/image/face?w=100&h=100' %}
-                <img src="{{ asset(app.user.avatar) }}" alt="">
-            {% else %}
-                <img src="{{ asset('uploads/filename/' ~ app.user.avatar) }}" width="100px" height="100px" alt="">
-            {% endif %}
-            <div>
-                <p>Your email: {{ app.user.email }}</p>
-                <p>Your username: {{ app.user.username }}</p>
-                <p>Your age: {{ app.user.age }} year</p>
-                <p>Your password: *******</p>
-                <p>Verified account ?
-                    {% if app.user.isVerified == true %}
-                        Your account is verified !
-                    {% endif %}
-                    {% if app.user.isVerified == false %}
-                        Your account is not verified !
-                    {% endif %}
-                </p>
-                <a href="{{ path('app_disorganized') }}">Disorganized</a>
+        <section class="bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 mb-4 mb-sm-5">
+                        <div class="card card-style1 border-0">
+                            <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6 mb-4 mb-lg-0">
+                                        <img src="{{ asset('/uploads/filename/' ~ app.user.avatar) }}" height="240px" alt="...">
+                                    </div>
+                                    <div class="col-lg-6 px-xl-10">
+                                        <div class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
+                                            <h3 class="h2 text-white mb-0">{{ app.user.username }}</h3>
+                                            <span class="text-bg-info">{{ app.user.email }}</span>
+                                        </div>
+                                        <ul class="list-unstyled mb-1-9">
+                                            <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Roles: <br></span>
+                                                {% for role in app.user.roles %}
+                                                    {{ role }} <br>
+                                                {% endfor %}
+                                            </li>
+                                            <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Age:</span>{{ app.user.age }} year</li>
+                                            <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Password:</span>*************</li>
+                                            <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Verified account:</span>
+                                                {% if app.user.isVerified == true %}
+                                                    Your account is verified !
+                                                {% endif %}
+                                                {% if app.user.isVerified == false %}
+                                                    Your account is not verified !
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-info" href="{{ path('app_disorganized') }}">Disorganized</a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     {% endif %}
-
 {% endblock %}
